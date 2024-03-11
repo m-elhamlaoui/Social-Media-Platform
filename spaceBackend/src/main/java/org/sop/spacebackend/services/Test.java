@@ -1,2 +1,4 @@
-package org.sop.spacebackend.services;public class Test {
+package org.sop.spacebackend.services;
+
+public class Test {
 }

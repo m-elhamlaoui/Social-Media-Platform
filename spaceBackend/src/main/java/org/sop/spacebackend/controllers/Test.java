@@ -1,2 +1,4 @@
-package org.sop.spacebackend.controllers;public class Test {
+package org.sop.spacebackend.controllers;
+
+public class Test {
 }

@@ -1,57 +1,65 @@
 # Description
 
-Ce projet consiste à développer une application de médias sociaux avec une thématique spatiale. Voici une description détaillée des principales composantes et fonctionnalités du projet :
+This project aims to develop a social media application with a spatial theme. Here is a detailed description of the main components and features of the project:
 
-### Plateforme de médias sociaux : 
-L'objectif principal est de créer une plateforme où les utilisateurs peuvent interagir entre eux, partager du contenu lié à l'espace, se connecter avec d'autres passionnés d'astronomie et de science spatiale, etc. Les fonctionnalités de base incluent l'authentification des utilisateurs, la gestion des profils (avec des informations telles que la biographie, les intérêts spatiaux, etc.), la publication de contenu, les commentaires sur les publications des autres utilisateurs, la possibilité de "liker" les publications, l'envoi de messages privés, etc.
+### Social Media Platform:
 
-### Intégration des API de la NASA : 
-Pour enrichir l'expérience utilisateur, il est prévu d'intégrer les API de la NASA. Cela permettra aux utilisateurs d'accéder à diverses données et fonctionnalités liées à l'espace, telles que des images satellites, des informations sur les missions spatiales en cours, des données sur les planètes, etc. Il faudra explorer les différentes API disponibles et sélectionner celles qui correspondent le mieux aux besoins de l'application.
+The main objective is to create a platform where users can interact with each other, share space-related content, connect with other astronomy and space science enthusiasts, etc. Basic features include user authentication, profile management (with information such as biography, space interests, etc.), content posting, commenting on other users' posts, the ability to "like" posts, sending private messages, etc.
 
-### Ajout de fonctionnalités spatiales supplémentaires : 
-En plus des fonctionnalités de base d'un réseau social, des fonctionnalités uniques liées à l'espace seront intégrées. Cela pourrait inclure la visualisation de cartes stellaires interactives, la diffusion d'actualités spatiales en temps réel, des quiz sur l'espace pour tester les connaissances des utilisateurs, etc. Ces fonctionnalités visent à enrichir l'expérience utilisateur en lui fournissant du contenu et des activités spécifiques à sa passion pour l'astronomie et l'exploration spatiale.
+### Integration of NASA APIs:
 
-En résumé, ce projet vise à créer une plateforme de médias sociaux axée sur l'espace, offrant aux utilisateurs la possibilité d'interagir, de partager du contenu et de s'engager dans des activités liées à l'exploration spatiale, le tout en intégrant des données et des fonctionnalités provenant des API de la NASA.
+To enrich the user experience, it is planned to integrate NASA APIs. This will allow users to access various space-related data and features, such as satellite images, information on ongoing space missions, planet data, etc. Different available APIs will be explored and those that best fit the application's needs will be selected.
 
-# Besoins fonctionnels
+### Addition of Additional Space Features:
 
-### Authentification des utilisateurs :
-- Permettre aux utilisateurs de créer des comptes et de se connecter à l'application.
-- Gérer les sessions utilisateur et assurer la sécurité des données.
+In addition to basic social networking features, unique space-related features will be integrated. This could include interactive star map visualization, real-time space news broadcasting, space quizzes to test users' knowledge, etc. These features aim to enhance the user experience by providing content and activities specific to their passion for astronomy and space exploration.
 
-### Gestion des profils utilisateur :
-- Permettre aux utilisateurs de créer et de modifier leur profil avec des informations personnelles, des intérêts spatiaux, etc.
-- Afficher les profils publics des autres utilisateurs.
+In summary, this project aims to create a space-focused social media platform, providing users with the opportunity to interact, share content, and engage in space exploration-related activities, all while integrating data and features from NASA APIs.
 
-### Publication de contenu :
-- Permettre aux utilisateurs de créer des publications (texte, images, vidéos) sur des sujets liés à l'espace.
-- Prendre en charge la publication de contenu en temps réel.
+# Functional Requirements
 
-### Interaction sociale :
-- Permettre aux utilisateurs d'interagir avec les publications en les commentant et en les "likant".
-- Faciliter la recherche et la découverte de nouveaux utilisateurs à suivre.
+### User Authentication:
 
-### Intégration des API de la NASA :
-- Intégrer les API de la NASA pour accéder à des données spatiales telles que des images, des informations sur les missions spatiales, etc.
-- Afficher les données provenant des API de manière conviviale pour l'utilisateur.
+- Allow users to create accounts and log in to the application.
+- Manage user sessions and ensure data security.
 
-### Fonctionnalités spatiales supplémentaires :
-- Ajouter des fonctionnalités uniques liées à l'espace, telles que la visualisation de cartes stellaires, des actualités spatiales, des quiz sur l'espace, etc.
-- Assurer une expérience utilisateur immersive et engageante dans le domaine de l'astronomie et de l'exploration spatiale.
+### User Profile Management:
 
-# Besoins non fonctionnels 
+- Allow users to create and modify their profile with personal information, space interests, etc.
+- Display public profiles of other users.
 
-### Sécurité et confidentialité :
-- Assurer la sécurité des données utilisateur, y compris le stockage sécurisé des informations d'identification et des données personnelles.
-- Respecter les réglementations en matière de protection de la vie privée et de confidentialité des utilisateurs.
+### Content Posting:
 
-### Performances :
-- Offrir une expérience utilisateur fluide et réactive, même en cas de trafic intense sur l'application.
-- Optimiser les temps de chargement des pages et des contenus pour minimiser les temps d'attente des utilisateurs.
+- Allow users to create posts (text, images, videos) on space-related topics.
+- Support real-time content posting.
 
-### Extensibilité :
-- Concevoir l'application de manière à permettre l'ajout facile de nouvelles fonctionnalités et l'intégration de nouvelles API à l'avenir.
+### Social Interaction:
 
-## Accessibilité :
-- Garantir que l'application est accessible à tous les utilisateurs, y compris ceux ayant des besoins spécifiques en matière d'accessibilité (par exemple, les lecteurs d'écran pour les utilisateurs malvoyants).
-- Respecter les normes d'accessibilité web pour garantir une expérience utilisateur inclusive.
+- Allow users to interact with posts by commenting and "liking" them.
+- Facilitate searching and discovering new users to follow.
+
+### Integration of NASA APIs:
+
+- Integrate NASA APIs to access space data such as images, information on space missions, etc.
+- Display data from APIs in a user-friendly manner.
+
+### Additional Space Features:
+
+- Add unique space-related features such as star map visualization, space news, space quizzes, etc.
+- Ensure an immersive and engaging user experience in the field of astronomy and space exploration.
+
+# Non-Functional Requirements
+
+### Security and Privacy:
+
+- Ensure the security of user data, including securely storing login information and personal data.
+- Comply with regulations regarding user privacy and confidentiality.
+
+### Performance:
+
+- Provide a smooth and responsive user experience even during heavy traffic on the application.
+- Optimize page and content loading times to minimize user wait times.
+
+### Extensibility:
+
+- Design the application to allow for easy addition of new features and integration of new APIs in the future.

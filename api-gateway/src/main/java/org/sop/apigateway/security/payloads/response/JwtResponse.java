@@ -1,6 +1,7 @@
 package org.sop.apigateway.security.payloads.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.sop.apigateway.security.models.User;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,10 +16,13 @@ public class JwtResponse {
     private String lastName;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate birthDate;
+    private String phoneNumber;
+    private String bio;
+    private List<User> friends;
     private boolean enabled;
     private List<String> roles;
 
-    public JwtResponse(String token, Long id, String username, String email, String firstName, String lastName, LocalDate birthDate, boolean enabled, List<String> roles) {
+    public JwtResponse(String token, Long id, String username, String email, String firstName, String lastName, LocalDate birthDate, String phoneNumber, String bio, List<User> friends, boolean enabled, List<String> roles) {
         this.token = token;
         this.id = id;
         this.username = username;
@@ -26,6 +30,9 @@ public class JwtResponse {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
+        this.phoneNumber = phoneNumber;
+        this.bio = bio;
+        this.friends = friends;
         this.enabled = enabled;
         this.roles = roles;
     }
@@ -92,6 +99,30 @@ public class JwtResponse {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public List<User> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(List<User> friends) {
+        this.friends = friends;
     }
 
     public boolean isEnabled() {

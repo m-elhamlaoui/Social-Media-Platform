@@ -2,11 +2,10 @@ package org.sop.apigateway.security.models;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,36 +15,50 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @Column(name = "username")
     private String username;
 
-    @NotBlank
-    @Email
+    @Column(name = "email")
     private String email;
 
-    @NotBlank
+    @Column(name = "password")
     private String password;
 
-    @NotBlank
-    private String firstName;
-    @NotBlank
-    private String lastName;
-    private LocalDate birthDate;
-    private boolean enabled;
-
+    @Column(name = "firstname")
+    private String firstname;
+    @Column(name = "lastname")
+    private String lastname;
+    @Column(name = "birthdate")
+    private LocalDate birthdate;
+    @Column(name = "phone_number")
+    private String phoneNumber;
+    @Column(name = "bio")
+    private String bio;
+    @Column(name = "image")
+    private String image;
     @ManyToMany
+    @JoinTable(name = "user_friends",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "friend_id"))
+    private List<User> friends;
+    @Column(name = "enabled")
+    private boolean enabled;
+    @ManyToMany
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
     public User() {
     }
 
-    public User(String username, String email, String password, String firstName, String lastName, LocalDate birthDate, boolean enabled) {
+    public User(String username, String email, String password, String firstname, String lastname, LocalDate birthdate, boolean enabled) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.birthDate = birthDate;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.birthdate = birthdate;
         this.enabled = enabled;
     }
 
@@ -81,28 +94,60 @@ public class User {
         this.password = password;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
+    public LocalDate getBirthdate() {
+        return birthdate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthdate(LocalDate birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public List<User> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(List<User> friends) {
+        this.friends = friends;
     }
 
     public boolean isEnabled() {

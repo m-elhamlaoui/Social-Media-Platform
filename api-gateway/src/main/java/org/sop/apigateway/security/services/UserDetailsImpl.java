@@ -18,25 +18,33 @@ public class UserDetailsImpl implements UserDetails {
 
     private Long id;
     private String username;
+    private String email;
     @JsonIgnore
     private String password;
-    private String email;
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
+    private String phoneNumber;
+    private String bio;
+    private String image;
+    private List<User> friends;
     private boolean enabled;
 
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id, String username, String password, String email, String firstName, String lastName, LocalDate birthDate, boolean enabled, Collection<? extends GrantedAuthority> authorities) {
+    public UserDetailsImpl(Long id, String username, String email, String password, String firstName, String lastName, LocalDate birthDate, String phoneNumber, String bio, String image, List<User> friends, boolean enabled, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
-        this.password = password;
         this.email = email;
+        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
+        this.phoneNumber = phoneNumber;
+        this.bio = bio;
+        this.image = image;
+        this.friends = friends;
         this.enabled = enabled;
         this.authorities = authorities;
     }
@@ -49,11 +57,15 @@ public class UserDetailsImpl implements UserDetails {
         return new UserDetailsImpl(
                 user.getId(),
                 user.getUsername(),
-                user.getPassword(),
                 user.getEmail(),
-                user.getFirstName(),
-                user.getLastName(),
-                user.getBirthDate(),
+                user.getPassword(),
+                user.getFirstname(),
+                user.getLastname(),
+                user.getBirthdate(),
+                user.getPhoneNumber(),
+                user.getBio(),
+                user.getImage(),
+                user.getFriends(),
                 user.isEnabled(),
                 authorities);
     }
@@ -93,6 +105,21 @@ public class UserDetailsImpl implements UserDetails {
         return birthDate;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public List<User> getFriends() {
+        return friends;
+    }
 
     @Override
     public boolean isAccountNonExpired() {

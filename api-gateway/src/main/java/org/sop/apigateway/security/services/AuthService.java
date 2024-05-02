@@ -61,6 +61,9 @@ public class AuthService {
                 userDetails.getFirstName(),
                 userDetails.getLastName(),
                 userDetails.getBirthDate(),
+                userDetails.getPhoneNumber(),
+                userDetails.getBio(),
+                userDetails.getFriends(),
                 userDetails.isEnabled(),
                 roles));
     }

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RibbonClient(name = "API-GATEWAY")
 public interface ApiGatewayUserClient {
     @GetMapping("/id/{id}")
-    public User findById(@PathVariable Long id);
+    User findById(@PathVariable Long id);
 
     @PutMapping("/update")
-    public User update(@RequestBody User user);
+    User update(@RequestBody User user);
 }

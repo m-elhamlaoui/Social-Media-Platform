@@ -48,7 +48,8 @@ public class UserService {
     }
 
     public UserDto update(UserDto userDto) {
-        if (userRepository.existsByUsername(userDto.getUsername()) || userRepository.existsByEmail(userDto.getEmail()))
+        User foundUser = userRepository.findById(userDto.getId()).orElse(null);
+        if (foundUser != null && ((!foundUser.getUsername().equals(userDto.getUsername()) && userRepository.existsByUsername(userDto.getUsername())) || (!foundUser.getEmail().equals(userDto.getEmail()) && userRepository.existsByEmail(userDto.getEmail()))))
             return null;
         User user = userRepository.findById(userDto.getId()).orElse(null);
         if (user == null) return null;

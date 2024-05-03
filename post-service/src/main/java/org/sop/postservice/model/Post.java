@@ -1,5 +1,7 @@
 package org.sop.postservice.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -36,42 +38,5 @@ public class Post {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date dateLastModified;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    private User author;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
-    private List<Comment> postComments = new ArrayList<>();
-
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(
-            name = "post_likes",
-            joinColumns = @JoinColumn(name = "post_id"),
-            inverseJoinColumns = @JoinColumn(name = "liker_id")
-    )
-    private List<User> likeList = new ArrayList<>();
-
-    @ManyToOne
-    @JoinColumn(name = "shared_post_id")
-    private Post sharedPost;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "sharedPost")
-    private List<Post> shareList = new ArrayList<>();
-
     
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Post post = (Post) o;
-        return Objects.equals(id, post.id) && Objects.equals(author, post.author);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, author);
-    }
 }

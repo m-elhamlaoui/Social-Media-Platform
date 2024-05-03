@@ -16,13 +16,11 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/id/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public UserDto findById(@PathVariable Long id) {
         return userService.findById(id);
     }
 
     @GetMapping("/username/{username}")
-    @PreAuthorize("hasRole('ADMIN')")
     public UserDto findByUsername(@PathVariable String username) {
         return userService.findByUsername(username);
     }
@@ -34,13 +32,11 @@ public class UserController {
     }
 
     @DeleteMapping("/id/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public void deleteById(@PathVariable Long id) {
         userService.deleteById(id);
     }
 
     @PutMapping("/update")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public UserDto update(@RequestBody UserDto userDto) {
         return userService.update(userDto);
     }

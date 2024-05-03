@@ -1,5 +1,7 @@
 package org.sop.apigateway.security.services;
 
+import org.modelmapper.ModelMapper;
+import org.sop.apigateway.dtos.FriendDto;
 import org.sop.apigateway.security.jwt.JwtUtils;
 import org.sop.apigateway.security.models.ERole;
 import org.sop.apigateway.security.models.Role;
@@ -19,6 +21,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -40,6 +43,8 @@ public class AuthService {
 
     @Autowired
     JwtUtils jwtUtils;
+    @Autowired
+    ModelMapper modelMapper;
 
     public ResponseEntity<?> authenticateUser(LoginRequest loginRequest) {
 
@@ -53,7 +58,11 @@ public class AuthService {
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
-
+        List<FriendDto> friendDtos = new ArrayList<>();
+        for (User friend : userDetails.getFriends()) {
+            FriendDto friendDto = modelMapper.map(friend, FriendDto.class);
+            friendDtos.add(friendDto);
+        }
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getId(),
                 userDetails.getUsername(),
@@ -63,7 +72,7 @@ public class AuthService {
                 userDetails.getBirthDate(),
                 userDetails.getPhoneNumber(),
                 userDetails.getBio(),
-                userDetails.getFriends(),
+                friendDtos,
                 userDetails.isEnabled(),
                 roles));
     }

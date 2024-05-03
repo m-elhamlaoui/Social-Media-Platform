@@ -1,7 +1,7 @@
 package org.sop.apigateway.security.payloads.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.sop.apigateway.security.models.User;
+import org.sop.apigateway.dtos.FriendDto;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,11 +18,11 @@ public class JwtResponse {
     private LocalDate birthDate;
     private String phoneNumber;
     private String bio;
-    private List<User> friends;
+    private List<FriendDto> friends;
     private boolean enabled;
     private List<String> roles;
 
-    public JwtResponse(String token, Long id, String username, String email, String firstName, String lastName, LocalDate birthDate, String phoneNumber, String bio, List<User> friends, boolean enabled, List<String> roles) {
+    public JwtResponse(String token, Long id, String username, String email, String firstName, String lastName, LocalDate birthDate, String phoneNumber, String bio, List<FriendDto> friends, boolean enabled, List<String> roles) {
         this.token = token;
         this.id = id;
         this.username = username;
@@ -117,11 +117,11 @@ public class JwtResponse {
         this.bio = bio;
     }
 
-    public List<User> getFriends() {
+    public List<FriendDto> getFriends() {
         return friends;
     }
 
-    public void setFriends(List<User> friends) {
+    public void setFriends(List<FriendDto> friends) {
         this.friends = friends;
     }
 

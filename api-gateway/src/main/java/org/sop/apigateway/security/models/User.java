@@ -52,13 +52,14 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String password, String firstname, String lastname, LocalDate birthdate, boolean enabled) {
+    public User(String username, String email, String password, String firstname, String lastname, LocalDate birthdate, String phoneNumber, boolean enabled) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
         this.birthdate = birthdate;
+        this.phoneNumber = phoneNumber;
         this.enabled = enabled;
     }
 

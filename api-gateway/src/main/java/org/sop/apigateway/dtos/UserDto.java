@@ -1,5 +1,6 @@
 package org.sop.apigateway.dtos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import org.sop.apigateway.security.models.User;
@@ -14,10 +15,12 @@ public class UserDto {
     private String email;
     private String firstname;
     private String lastname;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate birthdate;
     private String phoneNumber;
     private String bio;
     private String image;
+    private boolean enabled;
 
     public User toUser(User user) {
         user.setUsername(this.getUsername());
@@ -28,6 +31,7 @@ public class UserDto {
         user.setPhoneNumber(this.getPhoneNumber());
         user.setBio(this.getBio());
         user.setImage(this.getImage());
+        user.setEnabled(this.enabled);
         return user;
     }
 }

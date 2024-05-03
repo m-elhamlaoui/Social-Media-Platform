@@ -7,6 +7,7 @@ import org.sop.apigateway.security.models.User;
 import org.sop.apigateway.security.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +31,6 @@ public class UserService {
         return modelMapper.map(user, UserDto.class);
     }
 
-    public UserDto findByEmail(String email) {
-        User user = userRepository.findByUsername(email).orElse(null);
-        if (user == null) return null;
-        return modelMapper.map(user, UserDto.class);
-    }
-
     public List<FriendDto> findFriends(Long id) {
         User user = userRepository.findById(id).orElse(null);
         if (user == null || user.getFriends() == null || user.getFriends().isEmpty()) return new ArrayList<>();
@@ -45,6 +40,11 @@ public class UserService {
             friendDtos.add(friendDto);
         }
         return friendDtos;
+    }
+
+    @Transactional
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
     }
 
     public UserDto update(UserDto userDto) {

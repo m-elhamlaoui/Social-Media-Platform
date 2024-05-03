@@ -2,7 +2,7 @@ package org.sop.apigateway.controllers;
 
 import org.sop.apigateway.dtos.FriendDto;
 import org.sop.apigateway.dtos.UserDto;
-import org.sop.apigateway.services.UserService;
+import org.sop.apigateway.services.facade.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -42,13 +42,11 @@ public class UserController {
     }
 
     @GetMapping("/add-friend/{id1}/{id2}")
-    @PreAuthorize("hasRole('USER')")
     public boolean addFriend(@PathVariable Long id1, @PathVariable Long id2) {
         return userService.addFriend(id1, id2);
     }
 
     @GetMapping("/remove-friend/{id1}/{id2}")
-    @PreAuthorize("hasRole('USER')")
     public boolean removeFriend(@PathVariable Long id1, @PathVariable Long id2) {
         return userService.removeFriend(id1, id2);
     }

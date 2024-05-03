@@ -1,6 +1,11 @@
-package org.sop.PostService.model;
+package org.sop.postservice.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+
+
+
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -9,65 +14,50 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "posts")
 @Getter
 @Setter
+@Table(name = "comments")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post {
-    @Id
+public class Comment {
+   @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; 
 
-    @Column(length = 4096)
+    @Column(length = 1024)
     private String content;
-    private String postPhoto;
     private Integer likeCount;
-    private Integer commentCount;
-    private Integer shareCount;
-
-    @Column(nullable = false)
-    private Boolean isTypeShare;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date dateCreated;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date dateLastModified;
-
-    @ManyToOne
-    @JoinColumn(name = "author_id")
+    @OneToOne
+    @JoinColumn(name = "author_id", nullable = false)
     private User author;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
-    private List<Comment> postComments = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "post_id", nullable = false)
+    private Post post;
 
     @JsonIgnore
     @ManyToMany
     @JoinTable(
-            name = "post_likes",
-            joinColumns = @JoinColumn(name = "post_id"),
+            name = "comment_likes",
+            joinColumns = @JoinColumn(name = "comment_id"),
             inverseJoinColumns = @JoinColumn(name = "liker_id")
     )
     private List<User> likeList = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "shared_post_id")
-    private Post sharedPost;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "sharedPost")
-    private List<Post> shareList = new ArrayList<>();
-
-    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Post post = (Post) o;
-        return Objects.equals(id, post.id) && Objects.equals(author, post.author);
+        Comment comment = (Comment) o;
+        return Objects.equals(id, comment.id) && Objects.equals(author, comment.author);
     }
 
     @Override

@@ -1,10 +1,11 @@
-package org.sop.apigateway.services;
+package org.sop.apigateway.services.impl;
 
 import org.modelmapper.ModelMapper;
 import org.sop.apigateway.dtos.FriendDto;
 import org.sop.apigateway.dtos.UserDto;
 import org.sop.apigateway.security.models.User;
 import org.sop.apigateway.security.repositories.UserRepository;
+import org.sop.apigateway.services.facade.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserService {
+public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
     @Autowired

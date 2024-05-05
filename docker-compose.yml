@@ -1,5 +1,5 @@
 version: "3.8"
-name: social-media
+name: social-media-app
 services:
   spacedb:
     image: mysql:latest

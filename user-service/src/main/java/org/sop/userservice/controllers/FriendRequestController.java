@@ -1,7 +1,9 @@
 package org.sop.userservice.controllers;
 
 import org.sop.userservice.dtos.FriendRequestDto;
+import org.sop.userservice.feignclients.ApiGatewayUserClient;
 import org.sop.userservice.models.Friend;
+import org.sop.userservice.models.User;
 import org.sop.userservice.services.facade.FriendRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,13 @@ import org.springframework.web.bind.annotation.*;
 public class FriendRequestController {
     @Autowired
     private FriendRequestService friendRequestService;
+    @Autowired
+    private ApiGatewayUserClient apiGatewayUserClient;
+
+    @GetMapping("/test/{id}")
+    public User findshit(@PathVariable Long id) {
+        return apiGatewayUserClient.findById(id);
+    }
 
     @GetMapping("/{sender}/{receiver}")
     public FriendRequestDto findBySenderAndReceiver(@PathVariable Long sender, @PathVariable Long receiver) {

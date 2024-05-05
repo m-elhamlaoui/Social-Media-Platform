@@ -10,17 +10,17 @@ public class UserService {
     @Autowired
     private ApiGatewayUserClient apiGatewayUserClient;
 
-    public void banUser(Long id){
+    public void banUser(Long id) {
         User user = apiGatewayUserClient.findById(id);
-        if(user == null) return ;
+        if (user == null) return;
         user.setEnabled(false);
         apiGatewayUserClient.update(user);
     }
 
-    public void unbanUser(Long id){
+    public void unbanUser(Long id) {
         User user = apiGatewayUserClient.findById(id);
-        if(user == null) return ;
+        if (user == null) return;
         user.setEnabled(true);
-       apiGatewayUserClient.update(user);
+        apiGatewayUserClient.update(user);
     }
 }

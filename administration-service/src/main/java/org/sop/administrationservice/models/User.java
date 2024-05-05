@@ -9,15 +9,15 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class User {
-        private Long id;
-        private String username;
-        private String email;
-        private String firstname;
-        private String lastname;
-        @JsonFormat(pattern = "dd/MM/yyyy")
-        private LocalDate birthdate;
-        private String phoneNumber;
-        private String bio;
-        private String image;
-        private boolean enabled;
+    private Long id;
+    private String username;
+    private String email;
+    private String firstname;
+    private String lastname;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate birthdate;
+    private String phoneNumber;
+    private String bio;
+    private String image;
+    private boolean enabled;
 }

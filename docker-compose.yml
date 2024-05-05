@@ -1,0 +1,81 @@
+version: "3.8"
+name: social-media
+services:
+  space-sql:
+    image: mysql:latest
+    container_name: space-sql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: milkyway
+    ports:
+      - "3306:3306"
+    volumes:
+      - spacedata:/var/lib/mysql
+    networks:
+      - spacenet
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: space-sql
+      MYSQL_ROOT_PASSWORD: milkyway
+    ports:
+      - "8000:8000"
+    networks:
+      - spacenet
+    depends_on:
+      - space-sql
+
+  eureka-server:
+    build: ./eureka-server
+    container_name: eureka-server
+    restart: always
+    ports:
+      - "8036:8036"
+    networks:
+      - spacenet
+
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - spacenet
+    depends_on:
+      - space-sql
+      - eureka-server
+
+  administration-service:
+    build: ./administration-service
+    container_name: administration-service
+    restart: always
+    ports:
+      - "8090:8090"
+    networks:
+      - spacenet
+    depends_on:
+      - eureka-server
+      - api-gateway
+
+  user-service:
+    build: ./user-service
+    container_name: user-service
+    restart: always
+    ports:
+      - "8100:8100"
+    networks:
+      - spacenet
+    depends_on:
+      - space-sql
+      - eureka-server
+      - api-gateway
+
+volumes:
+  spacedata:
+
+networks:
+  spacenet:

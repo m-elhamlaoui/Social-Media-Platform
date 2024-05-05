@@ -1,4 +1,4 @@
-package ord.sop.chatservice;
+package org.sop.chatservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

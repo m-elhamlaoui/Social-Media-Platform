@@ -30,26 +30,46 @@ jobs:
             cd ..
           done
 
-      - name: Build Docker images
-        run: docker compose build
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
 
-      - name: Start Minikube
-        run: minikube start
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Point to Minikube's Docker engine
-        run: eval $(minikube docker-env)
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Load Docker images into Minikube
-        run: |
-          minikube image load social-media-app-eureka-server
-          minikube image load social-media-app-api-gateway
-          minikube image load social-media-app-administration-service
-          minikube image load social-media-app-user-service
-          minikube image load mysql
-          minikube image load phpmyadmin
+      - name: push eureka-server to docker hub
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          dockerfile: ./eureka-server/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/smp:eureka-server
 
-      - name: Apply Kubernetes manifests
-        run: kubectl apply -f K8S
+      - name: push api-gateway to docker hub
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          dockerfile: ./api-gateway/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/smp:api-gateway
 
-      - name: Launch Minikube dashboard
-        run: minikube dashboard
+      - name: push administration-service to docker hub
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          dockerfile: ./administration-service/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/smp:administration-service
+
+      - name: push user-service to docker hub
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          dockerfile: ./user-service/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/smp:user-service

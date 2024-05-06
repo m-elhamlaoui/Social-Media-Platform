@@ -8,4 +8,6 @@ public interface ChatService {
     ChatDto sendChat(Long sender, Long receiver, String message);
 
     void deleteChat(Long sender, Long receiver);
+    
+    void processWebSocketMessage(ChatDto chatDto);
 }

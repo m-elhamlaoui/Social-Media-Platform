@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface PostRepository extends JpaRepository<Post, Long> {
-    List<Post> findPostsByAuthor(User userId, Pageable pageable);
-    List<Post> findPostsBySharedPost(Post postId, Pageable pageable);
+public interface CommentRepository extends JpaRepository<Comment, Long> {
+    List<Comment> findByPost(Post postId, Pageable pageable);
+
 }

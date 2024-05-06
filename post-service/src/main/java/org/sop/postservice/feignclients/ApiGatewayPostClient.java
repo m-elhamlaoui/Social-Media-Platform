@@ -10,5 +10,7 @@ public interface ApiGatewayPostClient {
     
     @GetMapping("/id/{id}")
     Post findById(@PathVariable Long id);
+    Post getPostById(@PathVariable("postId") Long postId);
+
 
 }

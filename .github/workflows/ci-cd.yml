@@ -10,12 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        - context: ./eureka-server/
-          file: ./eureka-server/Dockerfile
-          tag: smp:eureka-server
-        - context: ./api-gateway/
-          file: ./api-gateway/Dockerfile
-          tag: smp:api-gateway
+        - context: "./eureka-server/"
+          file: "./eureka-server/Dockerfile"
+          tag: "smp:eureka-server"
+        - context: "./api-gateway/"
+          file: "./api-gateway/Dockerfile"
+          tag: "smp:api-gateway"
 
     steps:
       - name: Checkout repository

@@ -8,15 +8,6 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        image:
-          - context: ./eureka-server/
-            file: ./eureka-server/Dockerfile
-            tag: smp:eureka-server
-          - context: ./api-gateway/
-            file: ./api-gateway/Dockerfile
-            tag: smp:api-gateway
 
     steps:
       - name: Checkout repository
@@ -52,6 +43,21 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: push images to docker hub
+        strategy:
+          matrix:
+            image:
+              - context: ./eureka-server/
+                file: ./eureka-server/Dockerfile
+                tag: smp:eureka-server
+              - context: ./api-gateway/
+                file: ./api-gateway/Dockerfile
+                tag: smp:api-gateway
+              - context: ./administration-service/
+                file: ./administration-service/Dockerfile
+                tag: smp:administration-service
+              - context: ./user-service/
+                file: ./user-service/Dockerfile
+                tag: smp:user-service
         uses: docker/build-push-action@v5
         with:
           context: ${{ matrix.image.context }}

@@ -25,6 +25,7 @@ jobs:
 
           for app in "${springApps[@]}"; do
             appDir="./$app"
+            chmod u+x $appDir/mvnw
             $appDir/mvnw clean test package
           done
 

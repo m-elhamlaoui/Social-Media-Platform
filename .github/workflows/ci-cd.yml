@@ -11,12 +11,9 @@ jobs:
     strategy:
 	  matrix:
 		include:
-		  - context: ./eureka-server/
-		    file: ./eureka-server/Dockerfile
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/smp:eureka-server
-      - context: ./api-gateway/
-		    file: ./api-gateway/Dockerfile
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/smp:api-gateway
+		  context: [./eureka-server/,./api-gateway/]
+		  file: [./eureka-server/Dockerfile,./api-gateway/Dockerfile]
+      tags: [${{ secrets.DOCKERHUB_USERNAME }}/smp:eureka-server,${{ secrets.DOCKERHUB_USERNAME }}/smp:api-gateway]
 
     steps:
       - name: Checkout repository

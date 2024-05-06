@@ -1,0 +1,56 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v2
+        with:
+          java-version: 21
+
+      - name: Build and test Spring Boot apps
+        run: |
+          rootDir="C:\Users\soufi\Documents\Social-Media-Platform"
+          springApps=("eureka-server" "api-gateway" "administration-service" "user-service")
+
+          cd $rootDir
+
+          for app in "${springApps[@]}"; do
+            appDir="$rootDir/$app"
+            cd $appDir
+            ./mvnw clean test package
+          done
+
+      - name: Build Docker images
+        run: docker-compose -f docker-compose.yml build
+
+      - name: Start Minikube
+        run: minikube start
+
+      - name: Point to Minikube's Docker engine
+        run: eval $(minikube docker-env)
+
+      - name: Load Docker images into Minikube
+        run: |
+          minikube image load social-media-app-eureka-server
+          minikube image load social-media-app-api-gateway
+          minikube image load social-media-app-administration-service
+          minikube image load social-media-app-user-service
+          minikube image load mysql
+          minikube image load phpmyadmin
+
+      - name: Apply Kubernetes manifests
+        run: kubectl apply -f K8S
+
+      - name: Launch Minikube dashboard
+        run: minikube dashboard

@@ -2,7 +2,7 @@ version: "3.8"
 name: social-media-app
 services:
   spacedb:
-    image: mysql:latest
+    image: mysql
     container_name: spacedb
     restart: always
     environment:
@@ -15,7 +15,7 @@ services:
       - spacenet
 
   phpmyadmin:
-    image: phpmyadmin:latest
+    image: phpmyadmin
     container_name: phpmyadmin
     restart: always
     environment:

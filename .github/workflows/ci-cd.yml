@@ -46,7 +46,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          dockerfile: ./eureka-server/Dockerfile
+          dockerfile: eureka-server/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/smp:eureka-server
 
@@ -54,7 +54,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          dockerfile: ./api-gateway/Dockerfile
+          dockerfile: api-gateway/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/smp:api-gateway
 
@@ -62,7 +62,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          dockerfile: ./administration-service/Dockerfile
+          dockerfile: administration-service/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/smp:administration-service
 
@@ -70,6 +70,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          dockerfile: ./user-service/Dockerfile
+          dockerfile: user-service/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/smp:user-service

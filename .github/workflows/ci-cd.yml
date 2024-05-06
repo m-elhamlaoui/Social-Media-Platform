@@ -45,31 +45,7 @@ jobs:
       - name: push eureka-server to docker hub
         uses: docker/build-push-action@v5
         with:
-          context: .
-          dockerfile: eureka-server/Dockerfile
+          context: ./eureka-server/
+          file: ./eureka-server/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/smp:eureka-server
-
-      - name: push api-gateway to docker hub
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          dockerfile: api-gateway/Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/smp:api-gateway
-
-      - name: push administration-service to docker hub
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          dockerfile: administration-service/Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/smp:administration-service
-
-      - name: push user-service to docker hub
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          dockerfile: user-service/Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/smp:user-service

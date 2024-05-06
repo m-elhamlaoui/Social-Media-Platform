@@ -9,11 +9,10 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     strategy:
-	  matrix:
-		include:
-		  context: [./eureka-server/,./api-gateway/]
-		  file: [./eureka-server/Dockerfile,./api-gateway/Dockerfile]
-      tags: [${{ secrets.DOCKERHUB_USERNAME }}/smp:eureka-server,${{ secrets.DOCKERHUB_USERNAME }}/smp:api-gateway]
+	    matrix:
+		    context: [./eureka-server/,./api-gateway/]
+		    file: [./eureka-server/Dockerfile,./api-gateway/Dockerfile]
+        tags: [${{ secrets.DOCKERHUB_USERNAME }}/smp:eureka-server,${{ secrets.DOCKERHUB_USERNAME }}/smp:api-gateway]
 
     steps:
       - name: Checkout repository

@@ -21,15 +21,11 @@ jobs:
 
       - name: Build and test Spring Boot apps
         run: |
-          rootDir="C:\Users\soufi\Documents\Social-Media-Platform"
           springApps=("eureka-server" "api-gateway" "administration-service" "user-service")
 
-          cd $rootDir
-
           for app in "${springApps[@]}"; do
-            appDir="$rootDir/$app"
-            cd $appDir
-            ./mvnw clean test package
+            appDir="./$app"
+            $appDir/mvnw clean test package
           done
 
       - name: Build Docker images

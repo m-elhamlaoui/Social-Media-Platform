@@ -7,13 +7,13 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
     strategy:
 	    matrix:
 		    context: [./eureka-server/,./api-gateway/]
 		    file: [./eureka-server/Dockerfile,./api-gateway/Dockerfile]
         tags: [${{ secrets.DOCKERHUB_USERNAME }}/smp:eureka-server,${{ secrets.DOCKERHUB_USERNAME }}/smp:api-gateway]
 
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4

@@ -28,6 +28,15 @@ services:
     depends_on:
       - spacedb
 
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    restart: always
+    ports:
+      - "9411:9411"
+    networks:
+      - spacenet
+
   eureka-server:
     build: ./eureka-server
     container_name: eureka-server
@@ -36,6 +45,8 @@ services:
       - "8036:8036"
     networks:
       - spacenet
+    depends_on:
+      - zipkin
 
   api-gateway:
     build: ./api-gateway
@@ -47,6 +58,7 @@ services:
       - spacenet
     depends_on:
       - spacedb
+      - zipkin
       - eureka-server
 
   administration-service:
@@ -58,6 +70,7 @@ services:
     networks:
       - spacenet
     depends_on:
+      - zipkin
       - eureka-server
       - api-gateway
 
@@ -71,6 +84,7 @@ services:
       - spacenet
     depends_on:
       - spacedb
+      - zipkin
       - eureka-server
       - api-gateway
 

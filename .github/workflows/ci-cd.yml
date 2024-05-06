@@ -18,19 +18,20 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
+          cache: maven
 
       - name: Build and test Spring Boot apps
         run: |
           springApps=("eureka-server" "api-gateway" "administration-service" "user-service")
 
           for app in "${springApps[@]}"; do
-            appDir="./$app"
-            chmod u+x $appDir/mvnw
-            $appDir/mvnw clean test package
+            cd $app
+            mvn clean test package
+            cd ..
           done
 
       - name: Build Docker images
-        run: docker-compose -f docker-compose.yml build
+        run: docker-compose build
 
       - name: Start Minikube
         run: minikube start

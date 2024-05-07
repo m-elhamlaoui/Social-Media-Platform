@@ -1,37 +1,40 @@
 package org.sop.postservice.services.impl;
 
 import org.sop.postservice.models.Post;
-import org.sop.postservice.repositories.PostRepository;
 import org.sop.postservice.services.facade.PostService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class PostServiceImpl implements PostService {
 
-    @Autowired
-    private final PostRepository postRepository;
-
-    public PostServiceImpl(PostRepository postRepository) {
-        this.postRepository = postRepository;
-    }
+    private final Map<Long, Post> postMap = new ConcurrentHashMap<>();
+    private final AtomicLong nextId = new AtomicLong(1);
 
     @Override
     public Post findPostById(Long id) {
-        return postRepository.findById(id).orElse(null);
+        return postMap.get(id);
     }
 
     @Override
     public Post createPost(Post post) {
-        // Ajoutez ici toute logique de traitement avant de sauvegarder le post
-        return postRepository.save(post);
+        Long postId = getNextId();
+        post.setId(postId);
+        postMap.put(postId, post);
+        return post;
     }
 
     @Override
     public List<Post> getAllPosts() {
-        return postRepository.findAll();
+        return new ArrayList<>(postMap.values());
     }
 
+    private Long getNextId() {
+        return nextId.getAndIncrement();
+    }
 }

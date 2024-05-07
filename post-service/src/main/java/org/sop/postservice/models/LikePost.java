@@ -1,14 +1,8 @@
 package org.sop.postservice.models;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
-
 public class LikePost {
+    Long id;
+    Long userId;
+    Long postId;
     
-    private Long id;
-    private Long UserId;
-    private Long postId;
 }

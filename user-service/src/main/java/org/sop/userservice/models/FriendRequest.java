@@ -1,26 +1,30 @@
 package org.sop.userservice.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity(name = "friend-requests")
+@Entity
+@Table(name = "friend-requests")
 public class FriendRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long sender;
-    private Long receiver;
+    @Column(name = "sent_at")
+    private LocalDate sentAt;
+    @Column(name = "sender_id")
+    private Long senderId;
+    @Column(name = "receiver_id")
+    private Long receiverId;
 
-    public FriendRequest(Long sender, Long receiver) {
-        this.sender = sender;
-        this.receiver = receiver;
+    public FriendRequest(Long senderId, Long receiverId) {
+        this.senderId = senderId;
+        this.receiverId = receiverId;
     }
 }

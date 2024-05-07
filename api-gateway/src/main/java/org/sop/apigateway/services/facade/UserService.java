@@ -1,22 +1,19 @@
 package org.sop.apigateway.services.facade;
 
-import org.sop.apigateway.dtos.FriendDto;
-import org.sop.apigateway.dtos.UserDto;
+import org.sop.apigateway.security.models.User;
 
 import java.util.List;
 
 public interface UserService {
-    public UserDto findById(Long id);
+    User findById(Long id);
 
-    public UserDto findByUsername(String username);
+    List<User> findFriends(Long id);
 
-    public List<FriendDto> findFriends(Long id);
+    void deleteById(Long id);
 
-    public void deleteById(Long id);
+    User update(User user);
 
-    public UserDto update(UserDto userDto);
+    boolean addFriend(Long id1, Long id2);
 
-    public boolean addFriend(Long id1, Long id2);
-
-    public boolean removeFriend(Long id1, Long id2);
+    boolean removeFriend(Long id1, Long id2);
 }

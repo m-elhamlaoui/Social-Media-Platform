@@ -3,14 +3,10 @@ package org.sop.postservice.dtos;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
-public class PostDto {
+public class ViewedPostDto {
     private Long id;
-    private String text;
-    private String image;
-    private LocalDate createdAt;
     private Long userId;
+    private Long postId;
 }

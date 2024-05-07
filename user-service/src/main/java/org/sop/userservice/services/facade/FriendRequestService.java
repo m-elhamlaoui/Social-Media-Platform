@@ -1,14 +1,21 @@
 package org.sop.userservice.services.facade;
 
-import org.sop.userservice.dtos.FriendRequestDto;
-import org.sop.userservice.models.Friend;
+import org.sop.userservice.models.FriendRequest;
+import org.sop.userservice.models.User;
+
+import java.util.List;
 
 public interface FriendRequestService {
-    FriendRequestDto findBySenderAndReceiver(Long sender, Long receiver);
 
-    FriendRequestDto sendRequest(Long sender, Long receiver);
+    List<FriendRequest> findBySenderId(Long senderId);
 
-    Friend acceptRequest(Long sender, Long receiver);
+    List<FriendRequest> findByReceiverId(Long receiverId);
 
-    void rejectRequest(Long sender, Long receiver);
+    void deleteUserFriendRequests(Long id);
+
+    FriendRequest sendRequest(Long senderId, Long receiverId);
+
+    User acceptRequest(Long senderId, Long receiverId);
+
+    void rejectRequest(Long senderId, Long receiverId);
 }

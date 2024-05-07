@@ -1,9 +1,6 @@
 package org.sop.userservice.services.impl;
 
-import org.modelmapper.ModelMapper;
-import org.sop.userservice.dtos.FriendRequestDto;
 import org.sop.userservice.feignclients.ApiGatewayUserClient;
-import org.sop.userservice.models.Friend;
 import org.sop.userservice.models.FriendRequest;
 import org.sop.userservice.models.User;
 import org.sop.userservice.repositories.FriendRequestRepository;
@@ -12,44 +9,48 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class FriendRequestServiceImpl implements FriendRequestService {
     @Autowired
     private FriendRequestRepository friendRequestRepository;
     @Autowired
     private ApiGatewayUserClient apiGatewayUserClient;
-    @Autowired
-    private ModelMapper modelMapper;
 
-    @Override
-    public FriendRequestDto findBySenderAndReceiver(Long sender, Long receiver) {
-        FriendRequest friendRequest = friendRequestRepository.findBySenderAndReceiver(sender, receiver);
-        return modelMapper.map(friendRequest, FriendRequestDto.class);
+    public List<FriendRequest> findBySenderId(Long senderId) {
+        return friendRequestRepository.findBySenderIdOrderBySentAtDesc(senderId);
     }
 
-    @Override
-    public FriendRequestDto sendRequest(Long sender, Long receiver) {
-        User user = apiGatewayUserClient.findById(receiver);
+    public List<FriendRequest> findByReceiverId(Long receiverId) {
+        return friendRequestRepository.findByReceiverIdOrderBySentAtDesc(receiverId);
+    }
+
+    @Transactional
+    public void deleteUserFriendRequests(Long id) {
+        friendRequestRepository.deleteBySenderId(id);
+        friendRequestRepository.deleteByReceiverId(id);
+    }
+
+    public FriendRequest sendRequest(Long senderId, Long receiverId) {
+        User user = apiGatewayUserClient.findById(receiverId);
         if (user == null) return null;
-        FriendRequest friendRequest = new FriendRequest(sender, receiver);
-        friendRequest = friendRequestRepository.save(friendRequest);
-        return modelMapper.map(friendRequest, FriendRequestDto.class);
+        FriendRequest friendRequest = new FriendRequest(senderId, receiverId);
+        return friendRequestRepository.save(friendRequest);
     }
 
-    @Override
     @Transactional
-    public Friend acceptRequest(Long sender, Long receiver) {
-        FriendRequest friendRequest = friendRequestRepository.findBySenderAndReceiver(sender, receiver);
-        User user = apiGatewayUserClient.findById(sender);
+    public User acceptRequest(Long senderId, Long receiverId) {
+        FriendRequest friendRequest = friendRequestRepository.findBySenderIdAndReceiverId(senderId, receiverId);
+        User user = apiGatewayUserClient.findById(senderId);
         if (friendRequest == null || user == null) return null;
-        friendRequestRepository.deleteBySenderAndReceiver(sender, receiver);
-        apiGatewayUserClient.addFriend(sender, receiver);
-        return modelMapper.map(user, Friend.class);
+        friendRequestRepository.deleteBySenderIdAndReceiverId(senderId, receiverId);
+        apiGatewayUserClient.addFriend(senderId, receiverId);
+        return user;
     }
 
-    @Override
     @Transactional
-    public void rejectRequest(Long sender, Long receiver) {
-        friendRequestRepository.deleteBySenderAndReceiver(sender, receiver);
+    public void rejectRequest(Long senderId, Long receiverId) {
+        friendRequestRepository.deleteBySenderIdAndReceiverId(senderId, receiverId);
     }
 }

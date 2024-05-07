@@ -8,12 +8,16 @@ import java.util.List;
 
 @Repository
 public interface FriendRequestRepository extends JpaRepository<FriendRequest, Long> {
-    FriendRequest findBySenderAndReceiver(Long sender, Long receiver);
+    FriendRequest findBySenderIdAndReceiverId(Long senderId, Long receiverId);
 
-    List<FriendRequest> findBySender(Long id);
+    List<FriendRequest> findBySenderIdOrderBySentAtDesc(Long senderId);
 
-    List<FriendRequest> findByReceiver(Long id);
+    List<FriendRequest> findByReceiverIdOrderBySentAtDesc(Long receiverId);
 
-    void deleteBySenderAndReceiver(Long sender, Long receiver);
+    int deleteBySenderIdAndReceiverId(Long senderId, Long receiverId);
+
+    int deleteBySenderId(Long senderId);
+
+    int deleteByReceiverId(Long receiverId);
 
 }

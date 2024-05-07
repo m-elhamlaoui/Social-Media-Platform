@@ -1,12 +1,13 @@
-package org.sop.administrationservice.services;
+package org.sop.administrationservice.services.Impl;
 
 import org.sop.administrationservice.feignclients.ApiGatewayUserClient;
 import org.sop.administrationservice.models.User;
+import org.sop.administrationservice.services.facade.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class UserServiceImpl implements UserService {
     @Autowired
     private ApiGatewayUserClient apiGatewayUserClient;
 

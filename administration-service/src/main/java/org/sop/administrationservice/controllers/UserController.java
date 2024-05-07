@@ -1,6 +1,6 @@
 package org.sop.administrationservice.controllers;
 
-import org.sop.administrationservice.services.UserService;
+import org.sop.administrationservice.services.facade.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

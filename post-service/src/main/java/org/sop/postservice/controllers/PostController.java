@@ -4,47 +4,63 @@ import org.modelmapper.ModelMapper;
 import org.sop.postservice.dtos.PostDto;
 import org.sop.postservice.models.Post;
 import org.sop.postservice.services.facade.PostService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/posts")
+@RequestMapping("/api/post")
 public class PostController {
+    @Autowired
+    private PostService postService;
+    @Autowired
+    private ModelMapper modelMapper;
 
-    private final PostService postService;
-    private final ModelMapper modelMapper;
-
-    
-    public PostController(PostService postService, ModelMapper modelMapper) {
-        this.postService = postService;
-        this.modelMapper = modelMapper;
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<PostDto> getPostById(@PathVariable Long id) {
-        Post post = postService.findPostById(id);
-        if (post != null) {
+    @GetMapping("/{userId}")
+    public List<PostDto> findByUserId(@PathVariable Long userId) {
+        List<Post> posts = postService.findByUserId(userId);
+        List<PostDto> postDtos = new ArrayList<>();
+        for (Post post : posts) {
             PostDto postDto = modelMapper.map(post, PostDto.class);
-            return ResponseEntity.ok(postDto);
+            postDtos.add(postDto);
         }
-        return ResponseEntity.notFound().build();
+        return postDtos;
     }
 
-    @PostMapping
-    public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto) {
+    @GetMapping("/{userId}/{page}/{size}")
+    public List<PostDto> findUnviewedPostsByUserId(@PathVariable Long userId, @PathVariable int page, @PathVariable int size) {
+        List<Post> posts = postService.findUnviewedPostsByUserId(userId, page, size);
+        List<PostDto> postDtos = new ArrayList<>();
+        for (Post post : posts) {
+            PostDto postDto = modelMapper.map(post, PostDto.class);
+            postDtos.add(postDto);
+        }
+        return postDtos;
+    }
+
+    @DeleteMapping("/id/{id}")
+    public void deleteById(@PathVariable Long id) {
+        postService.deleteById(id);
+    }
+
+    @DeleteMapping("/user-id/{userId}")
+    public void deleteByUserId(@PathVariable Long userId) {
+        postService.deleteByUserId(userId);
+    }
+
+    @PostMapping("/")
+    public PostDto save(@RequestBody PostDto postDto) {
         Post post = modelMapper.map(postDto, Post.class);
-        Post createdPost = postService.createPost(post);
-        PostDto createdPostDto = modelMapper.map(createdPost, PostDto.class);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdPostDto);
+        post = postService.save(post);
+        if (post == null) return null;
+        return modelMapper.map(post, PostDto.class);
     }
 
-    @GetMapping
-    public ResponseEntity<List<PostDto>> getAllPosts() {
-        List<Post> posts = postService.getAllPosts();
-        return ResponseEntity.ok(posts.stream().map(post -> modelMapper.map(post, PostDto.class)).toList());
+    @PutMapping("/")
+    public PostDto update(@RequestBody PostDto postDto) {
+        Post post = modelMapper.map(postDto, Post.class);
+        return modelMapper.map(postService.update(post), PostDto.class);
     }
-
 }

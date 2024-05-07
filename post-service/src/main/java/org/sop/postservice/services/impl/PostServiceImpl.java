@@ -1,40 +1,64 @@
 package org.sop.postservice.services.impl;
 
 import org.sop.postservice.models.Post;
+import org.sop.postservice.repositories.PostRepository;
+import org.sop.postservice.services.facade.CommentService;
 import org.sop.postservice.services.facade.PostService;
+import org.sop.postservice.services.facade.ReactionService;
+import org.sop.postservice.services.facade.ViewedPostService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class PostServiceImpl implements PostService {
+    @Autowired
+    private PostRepository postRepository;
+    @Autowired
+    private ReactionService reactionService;
+    @Autowired
+    private CommentService commentService;
+    @Autowired
+    private ViewedPostService viewedPostService;
 
-    private final Map<Long, Post> postMap = new ConcurrentHashMap<>();
-    private final AtomicLong nextId = new AtomicLong(1);
-
-    @Override
-    public Post findPostById(Long id) {
-        return postMap.get(id);
+    public List<Post> findByUserId(Long userId) {
+        return postRepository.findByUserId(userId);
     }
 
-    @Override
-    public Post createPost(Post post) {
-        Long postId = getNextId();
-        post.setId(postId);
-        postMap.put(postId, post);
-        return post;
+    public List<Post> findUnviewedPostsByUserId(Long userId, int page, int size) {
+        PageRequest pageable = PageRequest.of(page, size);
+        Page<Post> postPage = postRepository.findUnviewedPostsByUserId(userId, pageable);
+        return postPage.getContent();
     }
 
-    @Override
-    public List<Post> getAllPosts() {
-        return new ArrayList<>(postMap.values());
+    @Transactional
+    public void deleteById(Long id) {
+        commentService.deleteByPostId(id);
+        reactionService.deleteByPostId(id);
+        viewedPostService.deleteByPostId(id);
+        if (postRepository.existsById(id)) postRepository.deleteById(id);
     }
 
-    private Long getNextId() {
-        return nextId.getAndIncrement();
+    @Transactional
+    public void deleteByUserId(Long userId) {
+        List<Post> posts = findByUserId(userId);
+        for (Post post : posts) {
+            deleteById(post.getId());
+        }
     }
+
+    public Post save(Post post) {
+        Post foundPost = postRepository.findByUserIdAndCreatedAt(post.getUserId(), post.getCreatedAt());
+        if (foundPost != null) return null;
+        return postRepository.save(post);
+    }
+
+    public Post update(Post post) {
+        return postRepository.save(post);
+    }
+
 }

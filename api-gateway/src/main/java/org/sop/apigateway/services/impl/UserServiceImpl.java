@@ -1,8 +1,5 @@
 package org.sop.apigateway.services.impl;
 
-import org.modelmapper.ModelMapper;
-import org.sop.apigateway.dtos.FriendDto;
-import org.sop.apigateway.dtos.UserDto;
 import org.sop.apigateway.security.models.User;
 import org.sop.apigateway.security.repositories.UserRepository;
 import org.sop.apigateway.services.facade.UserService;
@@ -17,52 +14,33 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
-    @Autowired
-    ModelMapper modelMapper;
 
-    public UserDto findById(Long id) {
-        User user = userRepository.findById(id).orElse(null);
-        if (user == null) return null;
-        return modelMapper.map(user, UserDto.class);
+    public User findById(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 
-    public UserDto findByUsername(String username) {
-        User user = userRepository.findByUsername(username).orElse(null);
-        if (user == null) return null;
-        return modelMapper.map(user, UserDto.class);
-    }
-
-    public List<FriendDto> findFriends(Long id) {
-        User user = userRepository.findById(id).orElse(null);
+    public List<User> findFriends(Long id) {
+        User user = findById(id);
         if (user == null || user.getFriends() == null || user.getFriends().isEmpty()) return new ArrayList<>();
-        List<FriendDto> friendDtos = new ArrayList<>();
-        for (User friend : user.getFriends()) {
-            FriendDto friendDto = modelMapper.map(friend, FriendDto.class);
-            friendDtos.add(friendDto);
-        }
-        return friendDtos;
+        return user.getFriends();
     }
 
     @Transactional
     public void deleteById(Long id) {
-        userRepository.deleteById(id);
+        if (userRepository.existsById(id)) userRepository.deleteById(id);
     }
 
-    public UserDto update(UserDto userDto) {
-        User foundUser = userRepository.findById(userDto.getId()).orElse(null);
-        if (foundUser != null && ((!foundUser.getUsername().equals(userDto.getUsername()) && userRepository.existsByUsername(userDto.getUsername())) || (!foundUser.getEmail().equals(userDto.getEmail()) && userRepository.existsByEmail(userDto.getEmail()))))
+    public User update(User user) {
+        User foundUser = findById(user.getId());
+        if ((!foundUser.getUsername().equals(user.getUsername()) && userRepository.existsByUsername(user.getUsername())) || (!foundUser.getEmail().equals(user.getEmail()) && userRepository.existsByEmail(user.getEmail())))
             return null;
-        User user = userRepository.findById(userDto.getId()).orElse(null);
-        if (user == null) return null;
-        user = userDto.toUser(user);
-        user = userRepository.save(user);
-        userDto = modelMapper.map(user, UserDto.class);
-        return userDto;
+        applyChanges(user, foundUser);
+        return userRepository.save(foundUser);
     }
 
     public boolean addFriend(Long id1, Long id2) {
-        User user1 = userRepository.findById(id1).orElse(null);
-        User user2 = userRepository.findById(id2).orElse(null);
+        User user1 = findById(id1);
+        User user2 = findById(id2);
         if (user1 == null || user2 == null) return false;
         if (user1.getFriends() == null) user1.setFriends(new ArrayList<>());
         if (user2.getFriends() == null) user2.setFriends(new ArrayList<>());
@@ -74,14 +52,26 @@ public class UserServiceImpl implements UserService {
     }
 
     public boolean removeFriend(Long id1, Long id2) {
-        User user1 = userRepository.findById(id1).orElse(null);
-        User user2 = userRepository.findById(id2).orElse(null);
+        User user1 = findById(id1);
+        User user2 = findById(id2);
         if (user1 == null || user2 == null) return false;
         user1.getFriends().remove(user2);
         user2.getFriends().remove(user1);
         userRepository.save(user1);
         userRepository.save(user2);
         return true;
+    }
+
+    private void applyChanges(User user, User foundUser) {
+        foundUser.setUsername(user.getUsername());
+        foundUser.setEmail(user.getEmail());
+        foundUser.setFirstname(user.getFirstname());
+        foundUser.setLastname(user.getLastname());
+        foundUser.setBirthdate(user.getBirthdate());
+        foundUser.setPhoneNumber(user.getPhoneNumber());
+        foundUser.setBio(user.getBio());
+        foundUser.setImage(user.getImage());
+        foundUser.setEnabled(user.isEnabled());
     }
 
 }

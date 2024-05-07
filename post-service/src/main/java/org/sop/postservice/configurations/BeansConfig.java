@@ -1,4 +1,3 @@
-
 package org.sop.postservice.configurations;
 
 import org.modelmapper.ModelMapper;
@@ -9,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class BeansConfig {
     @Bean
-     public ModelMapper modelMapper() {
+    public ModelMapper modelMapper() {
         return new ModelMapper();
     }
 }

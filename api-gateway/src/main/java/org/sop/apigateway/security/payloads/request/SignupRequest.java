@@ -17,6 +17,8 @@ public class SignupRequest {
     private String lastName;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate birthDate;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate createdAt;
     private String phoneNumber;
 
     private Set<String> role;
@@ -68,6 +70,14 @@ public class SignupRequest {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getPhoneNumber() {

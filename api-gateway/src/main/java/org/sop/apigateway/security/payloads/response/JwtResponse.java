@@ -16,13 +16,15 @@ public class JwtResponse {
     private String lastName;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate birthDate;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate createdAt;
     private String phoneNumber;
     private String bio;
     private List<FriendDto> friends;
     private boolean enabled;
     private List<String> roles;
 
-    public JwtResponse(String token, Long id, String username, String email, String firstName, String lastName, LocalDate birthDate, String phoneNumber, String bio, List<FriendDto> friends, boolean enabled, List<String> roles) {
+    public JwtResponse(String token, Long id, String username, String email, String firstName, String lastName, LocalDate birthDate, LocalDate createdAt, String phoneNumber, String bio, List<FriendDto> friends, boolean enabled, List<String> roles) {
         this.token = token;
         this.id = id;
         this.username = username;
@@ -30,6 +32,7 @@ public class JwtResponse {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
+        this.createdAt = createdAt;
         this.phoneNumber = phoneNumber;
         this.bio = bio;
         this.friends = friends;
@@ -99,6 +102,14 @@ public class JwtResponse {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getPhoneNumber() {

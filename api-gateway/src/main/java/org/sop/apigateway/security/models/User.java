@@ -30,6 +30,8 @@ public class User {
     private String lastname;
     @Column(name = "birthdate")
     private LocalDate birthdate;
+    @Column(name = "created_at")
+    private LocalDate createdAt;
     @Column(name = "phone_number")
     private String phoneNumber;
     @Column(name = "bio")
@@ -52,13 +54,14 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String password, String firstname, String lastname, LocalDate birthdate, String phoneNumber, boolean enabled) {
+    public User(String username, String email, String password, String firstname, String lastname, LocalDate birthdate, LocalDate createdAt, String phoneNumber, boolean enabled) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
         this.birthdate = birthdate;
+        this.createdAt = createdAt;
         this.phoneNumber = phoneNumber;
         this.enabled = enabled;
     }
@@ -117,6 +120,14 @@ public class User {
 
     public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
+    }
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getPhoneNumber() {

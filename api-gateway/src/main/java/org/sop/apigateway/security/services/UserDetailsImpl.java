@@ -24,6 +24,7 @@ public class UserDetailsImpl implements UserDetails {
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
+    private LocalDate createdAt;
     private String phoneNumber;
     private String bio;
     private String image;
@@ -33,7 +34,7 @@ public class UserDetailsImpl implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id, String username, String email, String password, String firstName, String lastName, LocalDate birthDate, String phoneNumber, String bio, String image, List<User> friends, boolean enabled, Collection<? extends GrantedAuthority> authorities) {
+    public UserDetailsImpl(Long id, String username, String email, String password, String firstName, String lastName, LocalDate birthDate, LocalDate createdAt, String phoneNumber, String bio, String image, List<User> friends, boolean enabled, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -41,6 +42,7 @@ public class UserDetailsImpl implements UserDetails {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
+        this.createdAt = createdAt;
         this.phoneNumber = phoneNumber;
         this.bio = bio;
         this.image = image;
@@ -62,6 +64,7 @@ public class UserDetailsImpl implements UserDetails {
                 user.getFirstname(),
                 user.getLastname(),
                 user.getBirthdate(),
+                user.getCreatedAt(),
                 user.getPhoneNumber(),
                 user.getBio(),
                 user.getImage(),
@@ -103,6 +106,10 @@ public class UserDetailsImpl implements UserDetails {
 
     public LocalDate getBirthDate() {
         return birthDate;
+    }
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
     }
 
     public String getPhoneNumber() {

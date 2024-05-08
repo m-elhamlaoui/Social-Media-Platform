@@ -26,7 +26,7 @@ public class PostServiceImpl implements PostService {
     private ViewedPostService viewedPostService;
 
     public List<Post> findByUserId(Long userId) {
-        return postRepository.findByUserIdOrOrderByCreatedAtDesc(userId);
+        return postRepository.findByUserIdOrderByCreatedAtDesc(userId);
     }
 
     public List<Post> findUnviewedPostsByUserId(Long userId, int page, int size) {

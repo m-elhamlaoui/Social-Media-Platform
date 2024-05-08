@@ -22,7 +22,7 @@ jobs:
 
       - name: Build and test Spring Boot apps
         run: |
-          springApps=("eureka-server" "api-gateway" "administration-service" "user-service")
+          springApps=("eureka-server" "api-gateway" "administration-service" "user-service" "post-service" "chat-service")
 
           for app in "${springApps[@]}"; do
             cd $app
@@ -50,7 +50,7 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/smp:eureka-server
 
-      - name: push image api-gatewayto docker hub
+      - name: push image api-gateway to docker hub
         uses: docker/build-push-action@v5
         with:
           context: ./api-gateway/
@@ -73,3 +73,19 @@ jobs:
           file: ./user-service/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/smp:user-service
+
+      - name: push image post-service to docker hub
+        uses: docker/build-push-action@v5
+        with:
+          context: ./post-service/
+          file: ./post-service/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/smp:post-service
+
+      - name: push image chat-service to docker hub
+        uses: docker/build-push-action@v5
+        with:
+          context: ./chat-service/
+          file: ./chat-service/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/smp:chat-service

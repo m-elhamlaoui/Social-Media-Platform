@@ -11,9 +11,7 @@ import java.util.List;
 public interface MessageRepository extends JpaRepository<Message, Long> {
     Message findBySenderIdAndReceiverIdAndSentAt(Long senderId, Long receiverId, LocalDate sentAt);
 
-    List<Message> findBySenderIdAndReceiverId(Long senderId,Long receiverId);
+    List<Message> findBySenderIdAndReceiverId(Long senderId, Long receiverId);
 
-    int deleteBySenderIdAndReceiverIdAndSentAt(Long senderId, Long receiverId, LocalDate sentAt);
-
-    int deleteBySenderIdAndReceiverId(Long senderId,Long receiverId);
+    int deleteBySenderIdAndReceiverId(Long senderId, Long receiverId);
 }

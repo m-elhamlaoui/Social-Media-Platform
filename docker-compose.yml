@@ -70,6 +70,7 @@ services:
       - spacenet
     depends_on:
       - zipkin
+      - prometheus
 
   api-gateway:
     build: ./api-gateway
@@ -82,7 +83,12 @@ services:
     depends_on:
       - spacedb
       - zipkin
+      - prometheus
       - eureka-server
+      - administration-service
+      - user-service
+      - post-service
+      - chat-service
 
   administration-service:
     build: ./administration-service
@@ -94,8 +100,8 @@ services:
       - spacenet
     depends_on:
       - zipkin
+      - prometheus
       - eureka-server
-      - api-gateway
 
   user-service:
     build: ./user-service
@@ -108,8 +114,38 @@ services:
     depends_on:
       - spacedb
       - zipkin
+      - prometheus
       - eureka-server
-      - api-gateway
+      - post-service
+      - chat-service
+
+  post-service:
+    build: ./post-service
+    container_name: post-service
+    restart: always
+    ports:
+      - "8110:8110"
+    networks:
+      - spacenet
+    depends_on:
+      - spacedb
+      - zipkin
+      - prometheus
+      - eureka-server
+
+  chat-service:
+    build: ./chat-service
+    container_name: chat-service
+    restart: always
+    ports:
+      - "8120:8120"
+    networks:
+      - spacenet
+    depends_on:
+      - spacedb
+      - zipkin
+      - prometheus
+      - eureka-server
 
 volumes:
   spacedata:

@@ -14,7 +14,7 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, Long> {
     Post findByUserIdAndCreatedAt(Long userId, LocalDate createdAt);
 
-    List<Post> findByUserId(Long userId);
+    List<Post> findByUserIdOrOrderByCreatedAtDesc(Long userId);
 
     @Query("SELECT p FROM Post p WHERE p.id NOT IN (SELECT vp.postId FROM ViewedPost vp WHERE vp.userId = ?1) ORDER BY p.createdAt DESC")
     Page<Post> findUnviewedPostsByUserId(Long userId, Pageable pageable);

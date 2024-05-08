@@ -16,7 +16,7 @@ spec:
       containers:
         - name: api-gateway
           image: social-media-app-api-gateway
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Never
           ports:
             - containerPort: 8080
 ---

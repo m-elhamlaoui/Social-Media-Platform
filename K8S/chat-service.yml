@@ -2,33 +2,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: eureka-server
+  name: chat-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: eureka-server
+      app: chat-service
   template:
     metadata:
       labels:
-        app: eureka-server
+        app: chat-service
     spec:
       containers:
-        - name: eureka-server
-          image: social-media-app-eureka-server
+        - name: chat-service
+          image: social-media-app-chat-service
           imagePullPolicy: Never
           ports:
-            - containerPort: 8036
+            - containerPort: 8120
 ---
 # Service definition
 apiVersion: v1
 kind: Service
 metadata:
-  name: eureka-server
+  name: chat-service
 spec:
   selector:
-    app: eureka-server
+    app: chat-service
   ports:
-    - port: 8036
-      targetPort: 8036
+    - port: 8120
+      targetPort: 8120
   type: LoadBalancer

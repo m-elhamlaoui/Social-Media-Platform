@@ -2,33 +2,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: eureka-server
+  name: post-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: eureka-server
+      app: post-service
   template:
     metadata:
       labels:
-        app: eureka-server
+        app: post-service
     spec:
       containers:
-        - name: eureka-server
-          image: social-media-app-eureka-server
+        - name: post-service
+          image: social-media-app-post-service
           imagePullPolicy: Never
           ports:
-            - containerPort: 8036
+            - containerPort: 8110
 ---
 # Service definition
 apiVersion: v1
 kind: Service
 metadata:
-  name: eureka-server
+  name: post-service
 spec:
   selector:
-    app: eureka-server
+    app: post-service
   ports:
-    - port: 8036
-      targetPort: 8036
+    - port: 8110
+      targetPort: 8110
   type: LoadBalancer

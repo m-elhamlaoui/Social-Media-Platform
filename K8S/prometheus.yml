@@ -75,3 +75,15 @@ data:
         scrape_interval: 5s
         static_configs:
           - targets: ["user-service:8100"]
+
+      - job_name: "post-service"
+        metrics_path: /actuator/prometheus
+        scrape_interval: 5s
+        static_configs:
+          - targets: ["post-service:8110"]
+
+      - job_name: "chat-service"
+        metrics_path: /actuator/prometheus
+        scrape_interval: 5s
+        static_configs:
+          - targets: ["chat-service:8120"]

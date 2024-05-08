@@ -16,7 +16,7 @@ spec:
       containers:
         - name: user-service
           image: social-media-app-user-service
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Never
           ports:
             - containerPort: 8100
 ---

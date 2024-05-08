@@ -29,6 +29,11 @@ public class ReactionController {
         return reactionDtos;
     }
 
+    @DeleteMapping("/{userId}")
+    public void deleteByUserId(@PathVariable Long userId) {
+        reactionService.deleteByUserId(userId);
+    }
+
     @PostMapping("/")
     private ReactionDto react(@RequestBody ReactionDto reactionDto) {
         Reaction reaction = modelMapper.map(reactionDto, Reaction.class);

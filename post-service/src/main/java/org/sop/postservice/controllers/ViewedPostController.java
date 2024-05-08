@@ -29,6 +29,11 @@ public class ViewedPostController {
         return viewedPostDtos;
     }
 
+    @DeleteMapping("/{userId}")
+    public void deleteByUserId(@PathVariable Long userId) {
+        viewedPostService.deleteByUserId(userId);
+    }
+
     @PostMapping("/")
     public ViewedPostDto save(@RequestBody ViewedPostDto viewedPostDto) {
         ViewedPost viewedPost = modelMapper.map(viewedPostDto, ViewedPost.class);

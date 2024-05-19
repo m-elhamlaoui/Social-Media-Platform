@@ -8,5 +8,4 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface PostServiceCommentClient {
     @DeleteMapping("/user-id/{userId}")
     void deleteByUserId(@PathVariable Long userId);
-
 }

@@ -15,7 +15,7 @@ public class ViewedPostServiceImpl implements ViewedPostService {
     private ViewedPostRepository viewedPostRepository;
 
     public List<ViewedPost> findByUserId(Long userId) {
-        return viewedPostRepository.findByUserId(userId);
+        return viewedPostRepository.findByUserIdOrderBySeenAtDesc(userId);
     }
 
     @Transactional

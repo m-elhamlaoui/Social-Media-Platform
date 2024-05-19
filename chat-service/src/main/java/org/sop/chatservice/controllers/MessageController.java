@@ -34,15 +34,14 @@ public class MessageController {
         return messageDtos;
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/message/{id}")
     public void deleteById(@PathVariable Long id) {
         messageService.deleteById(id);
     }
 
-
-    @DeleteMapping("/{userId1}/{userId2}")
-    public void deleteChatMessages(@PathVariable Long userId1, @PathVariable Long userId2) {
-        messageService.deleteChatMessages(userId1, userId2);
+    @DeleteMapping("/chats/{id}")
+    public void deleteUserChats(@PathVariable Long id) {
+        messageService.deleteUserChats(id);
     }
 
     @MessageMapping("message")

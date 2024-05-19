@@ -10,7 +10,7 @@ import java.util.List;
 public interface ViewedPostRepository extends JpaRepository<ViewedPost, Long> {
     ViewedPost findByUserIdAndPostId(Long userId, Long postId);
 
-    List<ViewedPost> findByUserId(Long userId);
+    List<ViewedPost> findByUserIdOrderBySeenAtDesc(Long userId);
 
     int deleteByUserId(Long userId);
 

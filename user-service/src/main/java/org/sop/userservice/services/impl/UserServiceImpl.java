@@ -20,6 +20,8 @@ public class UserServiceImpl implements UserService {
     private PostServiceReactionClient postServiceReactionClient;
     @Autowired
     private PostServiceViewedPostClient postServiceViewedPostClient;
+    @Autowired
+    private ChatServiceMessageClient chatServiceMessageClient;
 
     public void deleteUser(Long id) {
         friendRequestService.deleteUserFriendRequests(id);
@@ -27,6 +29,7 @@ public class UserServiceImpl implements UserService {
         postServiceCommentClient.deleteByUserId(id);
         postServiceReactionClient.deleteByUserId(id);
         postServiceViewedPostClient.deleteByUserId(id);
+        chatServiceMessageClient.deleteUserChats(id);
         apiGatewayUserClient.deleteById(id);
     }
 }

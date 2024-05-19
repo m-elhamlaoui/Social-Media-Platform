@@ -35,7 +35,7 @@ public class ReactionController {
     }
 
     @PostMapping("/")
-    private ReactionDto react(@RequestBody ReactionDto reactionDto) {
+    public ReactionDto react(@RequestBody ReactionDto reactionDto) {
         Reaction reaction = modelMapper.map(reactionDto, Reaction.class);
         reaction = reactionService.react(reaction);
         if (reaction == null) return null;

@@ -9,7 +9,7 @@ public interface MessageService {
 
     void deleteById(Long id);
 
-    void deleteChatMessages(Long userId1, Long userId2);
+    void deleteUserChats(Long id);
 
     Message save(Message message);
 }

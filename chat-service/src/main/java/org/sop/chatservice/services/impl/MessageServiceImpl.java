@@ -32,9 +32,9 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Transactional
-    public void deleteChatMessages(Long userId1, Long userId2) {
-        messageRepository.deleteBySenderIdAndReceiverId(userId1, userId2);
-        messageRepository.deleteBySenderIdAndReceiverId(userId2, userId1);
+    public void deleteUserChats(Long id) {
+        messageRepository.deleteBySenderId(id);
+        messageRepository.deleteByReceiverId(id);
     }
 
     public Message save(Message message) {

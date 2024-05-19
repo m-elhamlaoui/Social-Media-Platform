@@ -13,5 +13,7 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 
     List<Message> findBySenderIdAndReceiverId(Long senderId, Long receiverId);
 
-    int deleteBySenderIdAndReceiverId(Long senderId, Long receiverId);
+    int deleteBySenderId(Long senderId);
+
+    int deleteByReceiverId(Long receiverId);
 }

@@ -1,10 +1,7 @@
-import { User } from "../user/user";
-
 export class Post {
-    user!: User;
-    text!: string;
-    image!: string;
-    reaction!: string[];
-    comments!: Comment[];
-    date!: Date;
+     public id!: number;
+  public text!: string;
+  public image!: string;
+  public createdAt!: Date;
+  public userId!: number;
 }

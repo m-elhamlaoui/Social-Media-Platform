@@ -1,8 +1,7 @@
-import { User } from "../user/user";
-
 export class Comment {
-    description!: string;
-    user!: User;
-    date!: Date;
-    likes!: number;
+     public id!: number;
+  public text!: string;
+  public createdAt!: Date;
+  public userId!: number;
+  public postId!: number;
 }

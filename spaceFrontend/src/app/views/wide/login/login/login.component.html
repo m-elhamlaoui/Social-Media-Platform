@@ -1,0 +1,69 @@
+<section class="whole-page">
+  <div class="background-overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 offset-md-3 d-flex justify-content-center align-items-center">
+        <div class="card d-flex align-items-center">
+          <p-card [style]="{ width: '400px' }">
+            <ng-template pTemplate="header">
+              <div class="text-center pt-5">
+                <img src="../../../../../assets/images/logo.png" class="logo">
+              </div>
+            </ng-template>
+            <ng-template pTemplate="content">
+              <div>
+                <p-inputGroup class="mb-4">
+                  <p-inputGroupAddon>
+                    <i class="pi pi-user"></i>
+                  </p-inputGroupAddon>
+                  <span class="p-float-label">
+                    <input
+                      pInputText
+                      class="ps-2"
+                      [(ngModel)]="loginRequest.email"
+                      [ngClass]="validateEmail ? '' : 'invalid-border'"
+                    />
+                    <label
+                      for="name"
+                      [ngClass]="validateEmail ? '' : 'invalid-text'"
+                    >Email</label>
+                  </span>
+                </p-inputGroup>
+                <div class="card flex justify-content-center mb-3">
+                  <span class="p-float-label">
+                    <p-password
+                      [inputStyle]="{ width: '100%' }"
+                      [style]="{ width: '100%' }"
+                      [toggleMask]="true"
+                      [feedback]="false"
+                      [(ngModel)]="loginRequest.password"
+                      [ngClass]="validatePassword ? '' : 'invalid-password-border'"
+                    ></p-password>
+                    <label
+                      for="password"
+                      [ngClass]="validatePassword ? '' : 'invalid-text'"
+                    >Password</label>
+                  </span>
+                </div>
+
+                <div class="d-flex flex-column">
+                  <p-button
+                    [style]="{ width: '100%' }"
+                    label="Login"
+                    (onClick)="login()"
+                  ></p-button>
+                  <h5
+                    *ngIf="!validateCredentials"
+                    class="invalid-text text-center mb-0"
+                  >
+                    Invalid credentials
+                  </h5>
+                </div>
+              </div>
+            </ng-template>
+          </p-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

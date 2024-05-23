@@ -57,7 +57,6 @@ export class AuthService {
   public deleteUser() {
     this.cookieService.delete('loginResponse', '/');
     this.cookieService.delete('loginResponse');
-    console.log(this.retrieveUser());
   }
 
 

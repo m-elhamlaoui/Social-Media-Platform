@@ -1,17 +1,17 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
-import { PasswordModule } from 'primeng/password';
-import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
-import { MessageService } from 'primeng/api';
-import { AuthService } from '../../../../controllers/auth/auth.service';
-import { LoginRequest } from '../../../../models/loginRequest/login-request';
-import { LoginResponse } from '../../../../models/loginResponse/login-response';
+import {CommonModule} from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {InputGroupModule} from 'primeng/inputgroup';
+import {InputGroupAddonModule} from 'primeng/inputgroupaddon';
+import {ButtonModule} from 'primeng/button';
+import {CardModule} from 'primeng/card';
+import {PasswordModule} from 'primeng/password';
+import {FormsModule} from '@angular/forms';
+import {InputTextModule} from 'primeng/inputtext';
+import {MessageService} from 'primeng/api';
+import {AuthService} from '../../../controllers/auth/auth.service';
+import {LoginRequest} from '../../../models/loginRequest/login-request';
+import {LoginResponse} from '../../../models/loginResponse/login-response';
 
 @Component({
   selector: 'app-login',
@@ -30,20 +30,19 @@ import { LoginResponse } from '../../../../models/loginResponse/login-response';
   styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit {
-  public validateEmail!: boolean;
+  public validateUsername!: boolean;
   public validatePassword!: boolean;
-  public validateCredentials!: boolean;
 
   constructor(
     private router: Router,
     private messageService: MessageService,
     private authService: AuthService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
-    this.validateEmail = true;
+    this.validateUsername = true;
     this.validatePassword = true;
-    this.validateCredentials = true;
     this.loginRequest = new LoginRequest();
   }
 
@@ -53,15 +52,28 @@ export class LoginComponent implements OnInit {
         next: (data) => {
           this.loginResponse = data as LoginResponse;
           this.authService.storeUser();
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: "Login successful",
+            life: 3000,
+          });
           this.router.navigate(['home']);
         },
-        error: (e) => console.log(e),
+        error: (e) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: "The username or password is incorrect",
+            life: 3000,
+          });
+        },
       });
     } else {
       this.messageService.add({
         severity: 'error',
-        summary: 'Échec',
-        detail: 'Veuillez remplir tous les champs obligatoires',
+        summary: 'Error',
+        detail: 'Please fill in all mandatory fields',
         life: 3000,
       });
     }
@@ -70,12 +82,12 @@ export class LoginComponent implements OnInit {
   private validateForm(): boolean {
     let counter = 0;
     if (
-      this.loginRequest.email === undefined ||
-      this.loginRequest.email === ''
+      this.loginRequest.username === undefined ||
+      this.loginRequest.username === ''
     ) {
-      this.validateEmail = false;
+      this.validateUsername = false;
       counter++;
-    } else this.validateEmail = true;
+    } else this.validateUsername = true;
     if (
       this.loginRequest.password === undefined ||
       this.loginRequest.password === ''
@@ -83,19 +95,25 @@ export class LoginComponent implements OnInit {
       this.validatePassword = false;
       counter++;
     } else this.validatePassword = true;
-    if (counter === 0) return true;
-    else return false;
+    return counter === 0;
+  }
+
+  register() {
+    this.router.navigate(['register']);
   }
 
   public get loginRequest(): LoginRequest {
     return this.authService.loginRequest;
   }
+
   public set loginRequest(value: LoginRequest) {
     this.authService.loginRequest = value;
   }
+
   public get loginResponse(): LoginResponse {
     return this.authService.loginResponse;
   }
+
   public set loginResponse(value: LoginResponse) {
     this.authService.loginResponse = value;
   }

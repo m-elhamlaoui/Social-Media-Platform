@@ -1,0 +1,50 @@
+
+.whole-page {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding-top: 5vh;
+}
+
+.background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../../../../assets/images/bg1.jpg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.8;
+  z-index: -1;
+}
+
+
+.card {
+  width: 100%;
+}
+
+.logo {
+  height: 200px;
+  object-fit: contain;
+  padding-top: 10px
+}
+
+.invalid-border {
+  border-color: red;
+}
+
+.invalid-text {
+  color: red;
+}
+
+.invalid-password-border {
+  border-color: red;
+}
+
+:host ::ng-deep p-password.invalid-password-border input {
+  border-color: red;
+}
+

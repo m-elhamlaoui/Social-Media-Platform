@@ -1,46 +1,44 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from '../../../environment/environment';
-import { Observable, catchError, of } from 'rxjs';
-import { LoginResponse } from '../../models/loginResponse/login-response';
-import { ErrorResponse } from '../../models/errorResponse/error-response';
-import { LoginRequest } from '../../models/loginRequest/login-request';
-import { CookieService } from 'ngx-cookie-service';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {environment} from '../../../environment/environment';
+import {Observable} from 'rxjs';
+import {LoginResponse} from '../../models/loginResponse/login-response';
+import {LoginRequest} from '../../models/loginRequest/login-request';
+import {CookieService} from 'ngx-cookie-service';
+import {SignupRequest} from "../../models/SignupRequest/signup-request";
+import {MessageResponse} from "../../models/MessageResponse/message-response";
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private API = '';
+
   constructor(private http: HttpClient, private cookieService: CookieService) {
-    this.API = environment.apiUrl + '/rest/auth/';
+    this.API = environment.apiUrl + '/auth/';
   }
 
   private _loginRequest!: LoginRequest;
   private _loginResponse!: LoginResponse;
+  private _signupRequest!: SignupRequest
 
   private headersProvider(token: string) {
-    const headers = new HttpHeaders({
+    return new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
-    return headers;
   }
 
-  public login(): Observable<LoginResponse | ErrorResponse> {
-    return this.http.post<LoginResponse | ErrorResponse>(
-      this.API + 'login',
+  public login(): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(
+      this.API + 'signin',
       this.loginRequest
     );
   }
 
-  public update(passwordChanged: boolean): Observable<string> {
-    const headers = this.headersProvider(this.retrieveUser().token);
-    return this.http.put<string>(
-      this.API + passwordChanged,
-      this.retrieveUser().user,
-      {
-        headers,
-      }
+  public update(): Observable<MessageResponse> {
+    return this.http.post<MessageResponse>(
+      this.API + 'signup',
+      this.signupRequest
     );
   }
 
@@ -51,8 +49,7 @@ export class AuthService {
   public retrieveUser(): LoginResponse {
     const storedLoginResponse = this.cookieService.get('loginResponse');
     if (storedLoginResponse) {
-      const loginResponse: LoginResponse = JSON.parse(storedLoginResponse);
-      return loginResponse;
+      return JSON.parse(storedLoginResponse);
     }
     return new LoginResponse();
   }
@@ -63,15 +60,11 @@ export class AuthService {
     console.log(this.retrieveUser());
   }
 
-  public updatePassword(password: string) {
-    this.loginResponse.user.password = password;
-    const updatedCookie = JSON.stringify(this.loginResponse);
-    this.cookieService.set('loginResponse', updatedCookie);
-  }
 
   public get loginRequest(): LoginRequest {
     return this._loginRequest;
   }
+
   public set loginRequest(value: LoginRequest) {
     this._loginRequest = value;
   }
@@ -79,7 +72,17 @@ export class AuthService {
   public get loginResponse(): LoginResponse {
     return this._loginResponse;
   }
+
   public set loginResponse(value: LoginResponse) {
     this._loginResponse = value;
+  }
+
+
+  get signupRequest(): SignupRequest {
+    return this._signupRequest;
+  }
+
+  set signupRequest(value: SignupRequest) {
+    this._signupRequest = value;
   }
 }

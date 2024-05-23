@@ -1,15 +1,11 @@
-import { AuthService } from './controllers/auth/auth.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router, RouterOutlet } from '@angular/router';
-import {
-  ConfirmationService,
-  MessageService,
-  PrimeNGConfig,
-} from 'primeng/api';
-import { HeaderComponent } from './views/wide/header/header.component';
-import { ToastModule } from 'primeng/toast';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import {AuthService} from './controllers/auth/auth.service';
+import {Component, OnInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {Router, RouterOutlet} from '@angular/router';
+import {ConfirmationService, MessageService, PrimeNGConfig,} from 'primeng/api';
+import {HeaderComponent} from './views/wide/header/header.component';
+import {ToastModule} from 'primeng/toast';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 @Component({
   selector: 'app-root',
@@ -25,8 +21,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
   styleUrl: './app.component.css',
   providers: [MessageService, ConfirmationService],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Space';
+
   constructor(
     private primengConfig: PrimeNGConfig,
     private router: Router,
@@ -36,17 +33,15 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
-    if (this.authService.retrieveUser().user === undefined)
+    const username = this.authService.retrieveUser().username
+    if (username === undefined || username === null || username === '')
       this.router.navigate(['login']);
   }
 
-  ngOnDestroy(): void {
-    this.authService.deleteUser();
-  }
 
   checkLink(): boolean {
     if (
-      this.router.url.includes('login') ||
+      this.router.url.includes('login') || this.router.url.includes('register') ||
       this.router.url.includes('unauthorized')
     )
       return false;

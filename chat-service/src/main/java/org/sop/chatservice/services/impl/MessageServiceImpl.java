@@ -39,7 +39,7 @@ public class MessageServiceImpl implements MessageService {
 
     public Message save(Message message) {
         Message foundMessage = messageRepository.findBySenderIdAndReceiverIdAndSentAt(message.getSenderId(), message.getReceiverId(), message.getSentAt());
-        if (foundMessage != null) return foundMessage;
+        if (foundMessage != null) return null;
         return messageRepository.save(message);
     }
 

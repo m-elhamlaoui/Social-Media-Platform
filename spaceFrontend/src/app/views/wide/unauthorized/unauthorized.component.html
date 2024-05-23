@@ -1,0 +1,25 @@
+<section class="whole-page">
+  <div class="container">
+    <div class="row">
+      <div
+        class="col-lg-6 offset-md-3 d-flex justify-content-center align-items-center"
+      >
+        <div class="card d-flex align-items-center">
+          <p-card [style]="{ width: '500px' }">
+            <ng-template pTemplate="content"
+              ><div class="d-flex flex-column align-items-center">
+                <h1>non autorisé</h1>
+                <p-button
+                  [style]="{ color: 'white', border: '2px solid white' }"
+                  severity="secondary"
+                  label="Back"
+                  (onClick)="back()"
+                ></p-button>
+              </div>
+            </ng-template>
+          </p-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

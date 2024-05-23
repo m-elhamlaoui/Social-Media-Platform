@@ -7,9 +7,13 @@
   padding: 1rem 2rem;
   box-sizing: border-box;
 }
-
+.header-title {
+  font-size: 24px;
+  margin-top: 15px; 
+  color: #333;
+}
 .header-logo {
-  height: 50px;
+  height: 65px;
   object-fit: contain;
 }
 

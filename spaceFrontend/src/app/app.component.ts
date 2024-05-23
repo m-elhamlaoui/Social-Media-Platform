@@ -2,6 +2,9 @@ import { AuthService } from './controllers/auth/auth.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
+
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import {
   ConfirmationService,
   MessageService,
@@ -10,6 +13,7 @@ import {
 import { HeaderComponent } from './views/wide/header/header.component';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { SideMenuComponent } from './views/wide/side-menu/side-menu.component';
 
 @Component({
   selector: 'app-root',
@@ -18,15 +22,18 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     CommonModule,
     RouterOutlet,
     HeaderComponent,
+    SideMenuComponent,
     ToastModule,
     ConfirmDialogModule,
+    InputGroupModule,
+    InputGroupAddonModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   providers: [MessageService, ConfirmationService],
 })
 export class AppComponent {
-  title = 'Space';
+  title = 'Space Explorers';
   constructor(
     private primengConfig: PrimeNGConfig,
     private router: Router,
@@ -37,7 +44,7 @@ export class AppComponent {
 
   ngOnInit(): void {
     if (this.authService.retrieveUser().user === undefined)
-      this.router.navigate(['login']);
+      this.router.navigate(['home']);
   }
 
   ngOnDestroy(): void {

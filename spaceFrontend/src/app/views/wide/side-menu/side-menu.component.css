@@ -1,0 +1,29 @@
+:host {
+  display: block;
+  width: 200px;
+}
+
+.p-panelmenu .p-panelmenu-header-link {
+  font-size: 14px;
+}
+
+.p-panelmenu .p-panelmenu-content {
+  background-color: #f8f9fa;
+}
+
+.p-panelmenu .p-menuitem-link {
+  color: #495057;
+}
+
+.p-panelmenu .p-menuitem-link:hover {
+  background-color: #e9ecef;
+  color: #007bff;
+}
+
+.p-panelmenu .p-menuitem-icon {
+  color: #6c757d;
+}
+
+.p-panelmenu .p-menuitem-icon:hover {
+  color: #007bff;
+}

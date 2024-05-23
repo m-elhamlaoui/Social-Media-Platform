@@ -1,10 +1,14 @@
 <header class="header-wrapper">
   <!-- Logo image -->
+  <nav class="header-nav">
   <img src="assets/images/logo.png" alt="Logo image" class="header-logo" />
-
+  <span class="header-title ">Space Explorers</span>
+</nav>
   <!-- Navigation -->
   <nav class="header-nav">
-    <a class="header-link" routerLink="#">Home</a>
-    <a class="header-link" routerLink="#" >About</a>
+    <p-inputGroup>
+      <input type="text" pInputText placeholder="Keyword" />
+      <button type="button" pButton icon="pi pi-search" class="p-button-warning"></button>
+    </p-inputGroup>
   </nav>
 </header>

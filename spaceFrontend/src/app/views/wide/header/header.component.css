@@ -1,0 +1,33 @@
+.header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border-bottom: 2px solid rgb(200, 200, 200);
+  padding: 1rem 2rem;
+  box-sizing: border-box;
+}
+.header-title {
+  font-size: 24px;
+  margin-top: 15px; 
+  color: #333;
+}
+.header-logo {
+  height: 65px;
+  object-fit: contain;
+}
+
+.header-nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.header-link {
+  text-decoration: none;
+  font-weight: 400;
+  color: black;
+}
+
+.header-link.active {
+  font-weight: 600;
+}

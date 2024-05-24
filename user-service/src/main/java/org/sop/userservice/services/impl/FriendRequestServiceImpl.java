@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -36,6 +37,7 @@ public class FriendRequestServiceImpl implements FriendRequestService {
         User user = apiGatewayUserClient.findById(receiverId);
         if (user == null) return null;
         FriendRequest friendRequest = new FriendRequest(senderId, receiverId);
+        friendRequest.setSentAt(LocalDate.now());
         return friendRequestRepository.save(friendRequest);
     }
 

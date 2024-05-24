@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -35,6 +36,7 @@ public class CommentServiceImpl implements CommentService {
     public Comment save(Comment comment) {
         Comment foundComment = commentRepository.findByUserIdAndPostIdAndCreatedAt(comment.getUserId(), comment.getPostId(), comment.getCreatedAt());
         if (foundComment != null) return null;
+        comment.setCreatedAt(LocalDate.now());
         return commentRepository.save(comment);
     }
 

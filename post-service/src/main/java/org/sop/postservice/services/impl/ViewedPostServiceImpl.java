@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -31,6 +32,7 @@ public class ViewedPostServiceImpl implements ViewedPostService {
     public ViewedPost save(ViewedPost viewedPost) {
         ViewedPost foundViewedPost = viewedPostRepository.findByUserIdAndPostId(viewedPost.getUserId(), viewedPost.getPostId());
         if (foundViewedPost != null) return null;
+        viewedPost.setSeenAt(LocalDate.now());
         return viewedPostRepository.save(viewedPost);
     }
 }

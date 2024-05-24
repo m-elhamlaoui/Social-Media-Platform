@@ -20,6 +20,6 @@ public class UserDto {
     private LocalDate createdAt;
     private String phoneNumber;
     private String bio;
-    private String image;
+    private String imxage;
     private boolean enabled;
 }

@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -54,6 +55,7 @@ public class PostServiceImpl implements PostService {
     public Post save(Post post) {
         Post foundPost = postRepository.findByUserIdAndCreatedAt(post.getUserId(), post.getCreatedAt());
         if (foundPost != null) return null;
+        post.setCreatedAt(LocalDate.now());
         return postRepository.save(post);
     }
 

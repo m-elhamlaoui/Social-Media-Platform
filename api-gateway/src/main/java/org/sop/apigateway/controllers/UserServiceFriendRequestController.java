@@ -29,19 +29,19 @@ public class UserServiceFriendRequestController {
     }
 
     @PostMapping("/{senderId}/{receiverId}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public FriendRequest sendRequest(@PathVariable Long senderId, @PathVariable Long receiverId) {
         return userServiceFriendRequestClient.sendRequest(senderId, receiverId);
     }
 
     @DeleteMapping("/accept/{senderId}/{receiverId}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public FriendDto acceptRequest(@PathVariable Long senderId, @PathVariable Long receiverId) {
         return userServiceFriendRequestClient.acceptRequest(senderId, receiverId);
     }
 
     @DeleteMapping("/reject/{senderId}/{receiverId}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public void rejectRequest(@PathVariable Long senderId, @PathVariable Long receiverId) {
         userServiceFriendRequestClient.rejectRequest(senderId, receiverId);
     }

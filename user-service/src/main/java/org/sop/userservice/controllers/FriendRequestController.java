@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/friend-request")
+@RequestMapping("/api/friend-r  equest")
 public class FriendRequestController {
     @Autowired
     private FriendRequestService friendRequestService;
@@ -46,14 +46,14 @@ public class FriendRequestController {
     @PostMapping("/{senderId}/{receiverId}")
     public FriendRequestDto sendRequest(@PathVariable Long senderId, @PathVariable Long receiverId) {
         FriendRequest friendRequest = friendRequestService.sendRequest(senderId, receiverId);
-        if(friendRequest == null) return null;
+        if (friendRequest == null) return null;
         return modelMapper.map(friendRequest, FriendRequestDto.class);
     }
 
     @DeleteMapping("/accept/{senderId}/{receiverId}")
     public Friend acceptRequest(@PathVariable Long senderId, @PathVariable Long receiverId) {
         User user = friendRequestService.acceptRequest(senderId, receiverId);
-        if(user == null) return null;
+        if (user == null) return null;
         return modelMapper.map(user, Friend.class);
     }
 

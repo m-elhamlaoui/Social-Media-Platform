@@ -21,7 +21,7 @@ public class PostServiceReactionController {
     }
 
     @PostMapping("/")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public Reaction react(@RequestBody Reaction reaction) {
         return postServiceReactionClient.react(reaction);
     }

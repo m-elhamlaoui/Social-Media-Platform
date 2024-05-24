@@ -67,7 +67,7 @@ public class UserController {
     }
 
     @GetMapping("/remove-friend/{id1}/{id2}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public boolean removeFriend(@PathVariable Long id1, @PathVariable Long id2) {
         return userService.removeFriend(id1, id2);
     }

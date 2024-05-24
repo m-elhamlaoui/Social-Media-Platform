@@ -33,13 +33,13 @@ public class PostServicePostController {
     }
 
     @PostMapping("/")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public Post save(@RequestBody Post post) {
         return postServicePostClient.save(post);
     }
 
     @PutMapping("/")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public Post update(@RequestBody Post post) {
         return postServicePostClient.update(post);
     }

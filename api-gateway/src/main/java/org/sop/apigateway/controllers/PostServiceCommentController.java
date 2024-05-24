@@ -27,13 +27,13 @@ public class PostServiceCommentController {
     }
 
     @PostMapping("/")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public Comment save(@RequestBody Comment comment) {
         return postServiceCommentClient.save(comment);
     }
 
     @PutMapping("/")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public Comment update(@RequestBody Comment comment) {
         return postServiceCommentClient.update(comment);
     }

@@ -15,13 +15,13 @@ public class ChatServiceMessageController {
     private ChatServiceMessageClient chatServiceMessageClient;
 
     @GetMapping("/{userId1}/{userId2}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public List<Message> findChatMessages(@PathVariable Long userId1, @PathVariable Long userId2) {
         return chatServiceMessageClient.findChatMessages(userId1, userId2);
     }
 
     @DeleteMapping("/message/{id}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public void deleteById(@PathVariable Long id) {
         chatServiceMessageClient.deleteById(id);
     }
